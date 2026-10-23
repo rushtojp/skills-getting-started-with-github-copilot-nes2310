@@ -53,15 +53,89 @@ document.addEventListener("DOMContentLoaded", () => {
       scheduleIcon.textContent = "◷";
       schedule.append(scheduleIcon, document.createTextNode(details.schedule));
 
-      activityCard.append(title, availability, description, schedule);
+      const participantsSection = document.createElement("section");
+      participantsSection.className = "activity-participants";
+      participantsSection.setAttribute("aria-label", `Participants for ${name}`);
+
+      const participantsHeading = document.createElement("h4");
+      participantsHeading.textContent = "Participants";
+
+      const participantsList = document.createElement("ul");
+      participantsList.className = "participants-list";
+      if (details.participants.length > 0) {
+        details.participants.forEach((participant) => {
+          const participantItem = document.createElement("li");
+          participantItem.className = "participant-item";
+
+          const participantEmail = document.createElement("span");
+          participantEmail.className = "participant-email";
+          participantEmail.textContent = participant;
+
+          const removeButton = document.createElement("button");
+          removeButton.className = "remove-participant";
+          removeButton.type = "button";
+          removeButton.setAttribute("aria-label", `Remove ${participant} from ${name}`);
+          removeButton.title = "Unregister participant";
+          removeButton.innerHTML =
+            '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 4h10M6 4V2.75h4V4m2 0-.6 9H4.6L4 4m2.5 2v4.5m3-4.5v4.5" /></svg>';
+
+          participantItem.append(participantEmail, removeButton);
+          participantsList.appendChild(participantItem);
+        });
+      } else {
+        const emptyParticipants = document.createElement("li");
+        emptyParticipants.className = "participants-empty";
+        emptyParticipants.textContent = "No one has signed up yet";
+        participantsList.appendChild(emptyParticipants);
+      }
+
+      participantsSection.append(participantsHeading, participantsList);
+      activityCard.append(title, availability, description, schedule, participantsSection);
       activitiesList.appendChild(activityCard);
+    });
+
+    activitiesList.querySelectorAll(".remove-participant").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const participantItem = button.closest(".participant-item");
+        const activityCard = button.closest(".activity-card");
+        const email = participantItem.querySelector(".participant-email").textContent;
+        const activity = activityCard.querySelector("h3").textContent;
+        button.disabled = true;
+
+        try {
+          const response = await fetch(
+            `/activities/${encodeURIComponent(activity)}/participants?email=${encodeURIComponent(email)}`,
+            { method: "DELETE" }
+          );
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.detail || "Could not unregister participant");
+          }
+
+          messageDiv.textContent = result.message;
+          messageDiv.className = "message success";
+          messageDiv.classList.remove("hidden");
+          await fetchActivities();
+        } catch (error) {
+          messageDiv.textContent = error.message || "Could not unregister participant. Please try again.";
+          messageDiv.className = "message error";
+          messageDiv.classList.remove("hidden");
+          button.disabled = false;
+          console.error("Error unregistering participant:", error);
+        }
+
+        setTimeout(() => {
+          messageDiv.classList.add("hidden");
+        }, 5000);
+      });
     });
   }
 
   async function fetchActivities() {
     activitiesList.setAttribute("aria-busy", "true");
     try {
-      const response = await fetch("/activities");
+      const response = await fetch("/activities", { cache: "no-store" });
       if (!response.ok) {
         throw new Error(`Activity request failed with status ${response.status}`);
       }

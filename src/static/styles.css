@@ -310,6 +310,92 @@ main,
   font-size: 13px;
 }
 
+.activity-participants {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  padding: 13px 15px;
+  border: 1px solid #dcebe0;
+  border-radius: 11px;
+  background: #f4f8f3;
+}
+
+.activity-participants h4 {
+  margin: 0 0 8px;
+  color: var(--green-dark);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.participants-list {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #53685d;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.participant-item {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.participant-email {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.remove-participant {
+  display: grid;
+  width: 28px;
+  min-height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  margin: 0;
+  padding: 6px;
+  border: 1px solid #e7d9d5;
+  border-radius: 8px;
+  background: #fff;
+  color: #a35445;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.remove-participant:hover {
+  border-color: #e4bcb2;
+  background: #fff1ed;
+  color: #8f3428;
+  transform: none;
+}
+
+.remove-participant:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.remove-participant svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.4;
+}
+
+.participants-list .participants-empty {
+  color: #7b8980;
+  font-style: italic;
+  list-style: none;
+}
+
 .spots-badge {
   align-self: start;
   padding: 6px 9px;
