@@ -3,48 +3,106 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mergington High School Activities</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta
+      name="description"
+      content="Explore clubs, classes, and activities at Mergington High School."
+    />
+    <title>Student Activities | Mergington High School</title>
+    <link rel="stylesheet" href="styles.css?v=2" />
   </head>
   <body>
-    <header>
-      <h1>Mergington High School</h1>
-      <h2>Extracurricular Activities</h2>
+    <header class="site-header">
+      <a class="school-brand" href="/" aria-label="Mergington High School home">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>
+          <strong>Mergington</strong>
+          <span class="brand-caption">HIGH SCHOOL</span>
+        </span>
+      </a>
+      <a class="header-link" href="#activities">Explore activities <span aria-hidden="true">↘</span></a>
     </header>
 
     <main>
-      <section id="activities-container">
-        <h3>Available Activities</h3>
-        <div id="activities-list">
-          <!-- Activities will be loaded here -->
-          <p>Loading activities...</p>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> MAKE THE MOST OF YOUR AFTER-SCHOOL</p>
+          <h1 id="page-title">Find your thing.</h1>
+          <p class="hero-description">
+            Try something new, meet your people, and make this year yours.
+            There’s a place for everyone at Mergington.
+          </p>
+          <a class="hero-link" href="#activities">Browse what’s on <span aria-hidden="true">↓</span></a>
         </div>
+        <div class="hero-note" aria-label="A little time after school can make a big difference">
+          <span class="note-star" aria-hidden="true">✳</span>
+          <span>A little time<br />after school can<br />make a big difference.</span>
+        </div>
+        <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+        <div class="hero-orbit orbit-two" aria-hidden="true"></div>
       </section>
 
-      <section id="signup-container">
-        <h3>Sign Up for an Activity</h3>
-        <form id="signup-form">
-          <div class="form-group">
-            <label for="email">Student Email:</label>
-            <input type="email" id="email" required placeholder="your-email@mergington.edu" />
+      <div class="content-grid">
+        <section class="activities-section" id="activities" aria-labelledby="activities-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow section-eyebrow">YOUR NEXT ADVENTURE</p>
+              <h2 id="activities-title">After-school activities</h2>
+            </div>
+            <span class="section-caption" id="activities-count" aria-live="polite"></span>
           </div>
-          <div class="form-group">
-            <label for="activity">Select Activity:</label>
-            <select id="activity" required>
-              <option value="">-- Select an activity --</option>
-              <!-- Activity options will be loaded here -->
-            </select>
+          <label class="search-field" for="activity-search">
+            <span aria-hidden="true">⌕</span>
+            <input
+              type="search"
+              id="activity-search"
+              placeholder="Search clubs, classes, and more"
+              autocomplete="off"
+              aria-controls="activities-list"
+            />
+          </label>
+          <div id="activities-list" class="activities-list" aria-live="polite" aria-busy="true">
+            <p class="loading-state">Finding your next favorite thing…</p>
           </div>
-          <button type="submit">Sign Up</button>
-        </form>
-        <div id="message" class="hidden"></div>
-      </section>
+        </section>
+
+        <aside class="signup-panel" id="signup" aria-labelledby="signup-title">
+          <div class="signup-panel-top">
+            <span class="signup-icon" aria-hidden="true">↗</span>
+            <p class="eyebrow">READY WHEN YOU ARE</p>
+          </div>
+          <h2 id="signup-title">Save your spot.</h2>
+          <p class="signup-intro">Pick an activity and sign up with your school email. It’s that simple.</p>
+          <form id="signup-form">
+            <div class="form-group">
+              <label for="email">School email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                required
+                placeholder="you@mergington.edu"
+              />
+            </div>
+            <div class="form-group">
+              <label for="activity">Choose an activity</label>
+              <select id="activity" name="activity" required>
+                <option value="">Select an activity</option>
+              </select>
+            </div>
+            <button type="submit">Sign me up <span aria-hidden="true">→</span></button>
+          </form>
+          <div id="message" class="message hidden" role="status" aria-live="polite"></div>
+          <p class="signup-footnote"><span aria-hidden="true">✦</span> Your next favorite thing is waiting.</p>
+        </aside>
+      </div>
     </main>
 
-    <footer>
-      <p>&copy; 2023 Mergington High School</p>
+    <footer class="site-footer">
+      <span class="footer-brand">Mergington High School</span>
+      <span>Show up curious. Leave a little more you.</span>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=2"></script>
   </body>
 </html>
